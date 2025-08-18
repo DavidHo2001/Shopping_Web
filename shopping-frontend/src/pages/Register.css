@@ -1,0 +1,84 @@
+/* Import shared styles and add register-specific styles */
+@import "./Login.css";
+
+/* Override auth-card max-width for register form */
+.auth-card {
+  max-width: 450px;
+}
+
+/* Form Row for side-by-side inputs */
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* Form Hint */
+.form-hint {
+  color: #999;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.success-hint {
+  color: #28a745;
+  font-weight: 500;
+}
+
+/* Email Verification Container */
+.email-verification-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.email-verification-container .form-input {
+  flex: 1;
+}
+
+.verification-btn {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  min-width: 100px;
+}
+
+.verification-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Longer checkbox text */
+.checkbox-container {
+  line-height: 1.4;
+  align-items: flex-start;
+}
+
+.checkmark {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments for register form */
+@media (max-width: 480px) {
+  .form-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .auth-card {
+    max-width: none;
+  }
+
+  .email-verification-container {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .verification-btn {
+    width: 100%;
+  }
+}
