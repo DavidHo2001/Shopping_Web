@@ -6,6 +6,8 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
+    firstName: "",
+    lastName: "",
     phone: "",
     birth_date: "",
     sex: "",
@@ -23,27 +25,36 @@ const Profile = () => {
   const { user, dataLoading, logout, isLoggedIn } = useUser();
   useEffect(() => {
     if (!dataLoading) {
-      setFormData({
-        username: user.username,
-        email: user.email,
+      setFormData(prevData => ({
+        ...prevData,
+        username: user.username || "",
+        email: user.email || "",
         phone: user.phone || "",
         firstName: user.firstName || "",
         lastName: user.lastName || "",
-      });
+      }));
     }
   }, [user]);
   // Fetch user profile data on component mount
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch("/api/profile/", {
+        const response = await fetch("/api/profile/fetchProfile", {
           method: "GET",
           credentials: "include" // Include cookies for authentication
         });
         
         if (response.ok) {
           const userData = await response.json();
-          setFormData(userData);
+          setFormData(prevData => ({
+            ...prevData,
+            birth_date: (userData.birth_date).split('T')[0] || "",
+            sex: userData.sex || "",
+            address: userData.address || "",
+            city: userData.city || "",
+            zip: userData.zip || "",
+            country: userData.country || "",
+          }));
         } else {
           setError("Failed to load profile data");
         }
@@ -53,7 +64,7 @@ const Profile = () => {
     };
 
     fetchUserProfile();
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
   const handleChange = (e) => {
     // Update form data Dictionary
@@ -76,6 +87,25 @@ const Profile = () => {
     // Create payload with only non-empty fields (email is always included)
     const payload = { email: formData.email };
     
+    //Data validation
+    if(formData.username.length < 3){
+      setError("Username must be at least 3 characters long");
+      setLoading(false);
+      return;
+    }
+    if (formData.oldPassword && !formData.password && !formData.confirmPassword){
+      setError("If you want to change your password, you need to fill in the new password and confirm password");
+      setLoading(false);
+      return;
+    }
+    if (formData.oldPassword && formData.password && formData.password !== formData.confirmPassword
+      && formData.password.length < 8
+    ){
+      setError("Password and confirm password do not match or is less than 8 characters long");
+      setLoading(false);
+      return;
+    }
+
     // Add non-empty fields to payload
     Object.keys(formData).forEach(key => {
       if (key !== 'email' && formData[key] && formData[key].trim() !== '') {
@@ -94,10 +124,8 @@ const Profile = () => {
       
       if (response.ok) {
         const data = await response.json();
-        alert("[Profile updated]: " + data.username);
-        window.location.reload();
-        
-        window.location.href = '/profile';
+        alert("[Profile updated]: " + data.message);
+        window.location.href = '/login';
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Profile update failed. Please try again.");
@@ -143,6 +171,32 @@ const Profile = () => {
               disabled
               readOnly
               placeholder="Enter your email"
+              className="form-input"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="firstName">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="Enter your first name"
+              className="form-input"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Enter your last name"
               className="form-input"
             />
           </div>
@@ -257,9 +311,9 @@ const Profile = () => {
             <label htmlFor="newPassword">New Password</label>
             <input
               type="password"
-              id="newPassword"
-              name="newPassword"
-              value={formData.newPassword}
+              id="password"
+              name="password"
+              value={formData.password}
               onChange={handleChange}
               placeholder="Enter new password (optional)"
               className="form-input"

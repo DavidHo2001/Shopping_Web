@@ -134,7 +134,10 @@ const Register = () => {
         setEmailVerified(true);
         // You can add redirect logic here
         // window.location.href = '/login';
-        alert("Registration successful! Your email has been verified. Please login.");
+        alert("Registration successful! Please login to continue.");
+        window.location.reload();
+        
+        window.location.href = '/login';
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Registration failed. Please try again.");

@@ -55,6 +55,7 @@ const Navbar = () => {
         <img src={logo} alt="Glasy" />
       </Link>
       <ul className="navbar__categories">
+        <li onClick={() => navigate("/product")}>All</li>
         <li>女裝</li>
         <li>男裝</li>
         <li>名牌</li>

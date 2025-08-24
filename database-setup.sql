@@ -36,3 +36,20 @@ CREATE TABLE email_verification (
     INDEX idx_verification_code (verification_code),
     INDEX idx_expires_at (expires_at)
 );
+
+-- Table for Product
+CREATE TABLE product (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    category VARCHAR(100) NOT NULL,
+    brand VARCHAR(100),
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    image VARCHAR(255),
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Set id starting value as 10001
+ALTER TABLE product AUTO_INCREMENT = 10001;
+

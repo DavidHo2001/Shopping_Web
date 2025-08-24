@@ -1,7 +1,9 @@
 package com.shopping.controller;
 
 import com.shopping.model.UserRegistration;
+import com.shopping.model.UserProfile;
 import com.shopping.repository.UserRegistrationRepository;
+import com.shopping.repository.UserProfileRepository;
 import com.shopping.service.EmailVerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,9 @@ import java.util.Map;
 public class UserRegistrationController {
     @Autowired
     private UserRegistrationRepository userRegistrationRepository;
+    
+    @Autowired
+    private UserProfileRepository userProfileRepository;
     
     @Autowired
     private EmailVerificationService emailVerificationService;
@@ -78,7 +83,11 @@ public class UserRegistrationController {
             
             // Save user registration
             UserRegistration savedUser = userRegistrationRepository.save(userRegistration);
-            
+
+            // Create new user profile with email only
+            UserProfile userProfile = new UserProfile();
+            userProfile.setEmail(savedUser.getEmail());
+            userProfileRepository.save(userProfile);
             // Create a dictionary to return the user registration data(key is string and value is object)
             Map<String, Object> response = Map.of(
                 "id", savedUser.getId(),

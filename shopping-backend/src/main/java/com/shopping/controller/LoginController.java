@@ -176,12 +176,13 @@ public class LoginController {
             // Check if user is authenticated
             if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal() == "anonymousUser") {
                 //return false if user is not authenticated(not to return 401 error)
+                System.out.println("authentication: " + authentication);
                 return ResponseEntity.ok(Map.of("authenticated", false));
             }
             
             // Get user info(dictionary) from principal (set by your JWT filter)
             Map<String, Object> user = (Map<String, Object>) authentication.getPrincipal();
-            System.out.println("user: " + user);
+            //System.out.println("user: " + user);
             return ResponseEntity.ok(user);
             
         } catch (Exception e) {
