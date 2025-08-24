@@ -8,12 +8,14 @@ A comprehensive e-commerce platform **Glasy** demonstrating modern web developme
 
 ## Completed Features
 
-✅ **User Authentication System**
+ **User Authentication System**
 - User Registration & Login
 - Email Verification
 - JWT with HTTP-Only Cookies
 - Custom Security Filter Chain
 - React useContext for State Management
+**Pages**
+- Profile Page
 
 **Coming Soon**
  - Product pages
