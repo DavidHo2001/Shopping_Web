@@ -1,0 +1,56 @@
+[
+  {
+    "id": 10001,
+    "name": "Glasy Black",
+    "category": "Neutral",
+    "brand": "Glasy Vision",
+    "description": "Lightweight matte black rectangular frame with anti-glare lenses.",
+    "price": 499.00,
+    "image": "/Products/GlasyBlack.png"
+  },
+  {
+    "id": 10002,
+    "name": "Glasy Casual",
+    "category": "Men",
+    "brand": "Glasy Vision",
+    "description": "Casually hanging out.",
+    "price": 250.00,
+    "image": "/Products/GlasyCasual.png"
+  },
+  {
+    "id": 10003,
+    "name": "Glasy Smart",
+    "category": "Men",
+    "brand": "Glasy Vision",
+    "description": "Going to make a big deal.",
+    "price": 400.00,
+    "image": "/Products/GlasySmart.png"
+  },
+  {
+    "id": 10004,
+    "name": "Glasy Gentle",
+    "category": "Men",
+    "brand": "Glasy Vision",
+    "description": "Feel like a Scholar.",
+    "price": 350.00,
+    "image": "/Products/GlasyGentle.png"
+  },
+  {
+    "id": 10005,
+    "name": "Glasy Sport Flex Wrap",
+    "category": "Men",
+    "brand": "Glasy Sport",
+    "description": "Wrap-around sport frame with rubberized temples for grip.",
+    "price": 199.00,
+    "image": "/Products/GlasySportFlexWrap.png"
+  },
+  {
+    "id": 10006,
+    "name": "Glasy Cool",
+    "category": "Men",
+    "brand": "Glasy Luxe",
+    "description": "Masterfully crafted from premium titanium alloy with hand-polished edges, the Glasy Cool epitomizes sophisticated masculinity. Featuring Italian acetate temples with precision-engineered spring hinges and anti-reflective sapphire crystal lenses that offer 100% UV protection. The ergonomic nose bridge is custom-fitted with hypoallergenic silicone pads, while the temple tips showcase signature Glasy Luxe engravings. Each frame undergoes 72 hours of quality testing and comes with a handcrafted leather case, microfiber cloth, and lifetime adjustment service. Perfect for the discerning gentleman who demands both style and substance.",
+    "price": 1000.00,
+    "image": "/Products/GlasyCool.png"
+  }
+]

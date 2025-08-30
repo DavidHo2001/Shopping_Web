@@ -1,0 +1,190 @@
+.ProductTable {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 100vw;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.ProductBox {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    background-color: #e6ffff;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    /* Fixed dimensions for consistent box size */
+    height: 280px; /* Fixed height for all product boxes */
+    width: 100%; /* Take full width of grid column */
+    box-sizing: border-box; /* Include padding and border in dimensions */
+}
+
+.ProductBox h3 {
+    margin: 0 0 8px 0;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+.ProductBox img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin: 0 auto 8px auto;
+    display: block;
+    flex-shrink: 0;
+}
+
+.ProductBox p {
+    margin: 4px 0;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    flex: 1;
+    overflow: hidden; /* Hide overflow text */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.price {
+    font-weight: bold;
+    color: #007bff;
+    flex-shrink: 0;
+}
+
+.ProductID {
+    background-color: #7db6f3;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    position: absolute;
+    left: 0;
+}
+
+.ProductName {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+.ProductDialogOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+  }
+
+.ProductDialogContent{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Fixed dialog size */
+    background-color: #ffffff;
+    width: 600px;
+    height: 500px;
+    z-index: 1000;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    
+    /* Grid layout (fixed size for elements) */
+    display: grid;
+    grid-template-columns: 200px 1fr; /* image 200px at left, other remaining*/
+    grid-template-rows: auto auto 1fr; /* Header Name Description/*
+    
+    /* Grid areas */
+    grid-template-areas: 
+        "header header"
+        "image name"
+        "image description"
+        "price price";
+    gap: 20px;
+}
+
+
+.ProductDialogContent h3 {
+    grid-area: header;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0;
+}
+
+.DialogImage{
+    grid-area: image;
+    width: 100%; /* 200px due to ProductDialogContent grid-template-columns*/
+    height: 200px;
+    object-fit: cover; /* Crop image to fit the box*/
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.DialogProductName {
+    grid-area: name;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.DialogDescription {
+    grid-area: description;
+    margin: 0;
+    padding: 10px;
+    overflow-y: auto; /* Allow scrolling for long description*/
+    max-height: 150px;
+    line-height: 1.4;
+    font-size: 0.9rem;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.DialogPrice {
+    grid-area: price;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.DialogClose{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 5px 15px;
+    color: #ffffff;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.DialogClose:hover {
+    background-color: #c82333;
+}

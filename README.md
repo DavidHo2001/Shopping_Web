@@ -18,7 +18,7 @@ A comprehensive e-commerce platform **Glasy** demonstrating modern web developme
 - Profile Page
 
 **Coming Soon**
- - Product pages
+ - Product pages (Completed 50%)
  - Shopping Cart
  - Payment
  - Admin management page(Role)

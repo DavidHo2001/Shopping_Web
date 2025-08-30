@@ -56,12 +56,9 @@ const Navbar = () => {
       </Link>
       <ul className="navbar__categories">
         <li onClick={() => navigate("/product")}>All</li>
-        <li>女裝</li>
-        <li>男裝</li>
-        <li>名牌</li>
-        <li>運動單品</li>
-        <li>美容</li>
-        <li>童裝</li>
+        <li>Men</li>
+        <li>Women</li>
+        <li>Accessories</li>
       </ul>
       <div className="navbar__actions">
         <input className="navbar__search" placeholder="搜尋商品、風格和品牌" />
