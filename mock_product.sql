@@ -1,13 +1,14 @@
 -- MEN (Glasses)
-INSERT INTO products (name, category, brand, description, price, image)
+INSERT INTO product (name, category, brand, description, price, image)
 VALUES
 ('Glasy Black', 'Neutral', 'Glasy Vision', 'Lightweight matte black rectangular frame with anti-glare lenses.', 499.00, '/Products/GlasyBlack.png'),
 ('Glasy Casual', 'Men', 'Glasy Vision', 'Casually hanging out.', 250.00, '/Products/GlasyCasual.png'),
 ('Glasy Smart ', 'Men', 'Glasy Vision', 'Going to make a big deal.', 400.00, '/Products/GlasySmart.png'),
 ('Glasy Gentle', 'Men', 'Glasy Vision', 'Feel like a Scholar.', 350.00, '/Products/GlasyGentle.png'),
 ('Glasy Sport Flex Wrap', 'Men', 'Glasy Sport', 'Wrap-around sport frame with rubberized temples for grip.', 199.00, '/Products/GlasySportFlexWrap.png');
-('Glasy Cool', 'Men', 'Glasy Luxe',
-'Masterfully crafted from premium titanium alloy with hand-polished edges, the Glasy Cool epitomizes sophisticated masculinity. Featuring Italian acetate temples with precision-engineered spring hinges and anti-reflective sapphire crystal lenses that offer 100% UV protection. The ergonomic nose bridge is custom-fitted with hypoallergenic silicone pads, while the temple tips showcase signature Glasy Luxe engravings. Each frame undergoes 72 hours of quality testing and comes with a handcrafted leather case, microfiber cloth, and lifetime adjustment service. Perfect for the discerning gentleman who demands both style and substance.', 1000.00, '/Products/GlasyCool.png');
+
+INSERT INTO product (name, category, brand, description, price, image)
+VALUES ('Glasy Cool', 'Men', 'Glasy Luxe', 'Masterfully crafted from premium titanium alloy with hand-polished edges, the Glasy Cool epitomizes sophisticated masculinity. Featuring Italian acetate temples with precision-engineered spring hinges and anti-reflective sapphire crystal lenses that offer 100% UV protection. The ergonomic nose bridge is custom-fitted with hypoallergenic silicone pads, while the temple tips showcase signature Glasy Luxe engravings. Each frame undergoes 72 hours of quality testing and comes with a handcrafted leather case, microfiber cloth, and lifetime adjustment service. Perfect for the discerning gentleman who demands both style and substance.', 1000.00, '/Products/GlasyCool.png');
 -- WOMEN (Glasses)
 INSERT INTO products (name, category, brand, description, price, image)
 VALUES

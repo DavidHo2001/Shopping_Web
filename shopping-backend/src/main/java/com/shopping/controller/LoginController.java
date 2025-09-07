@@ -79,7 +79,7 @@ public class LoginController {
             }
             
             // Step 4: Generate JWT token
-            String token = jwtService.generateToken(user.getEmail(), user.getId());
+            String token = jwtService.generateToken(user.getEmail(), user.getId(), user.getRole());
             System.out.println("login request: " + loginRequest.keepLoggedIn);
             // If users ticked KeepLoggedIn = use full expiration time, else session cookie
             int cookieMaxAge = loginRequest.keepLoggedIn ? (jwtExpiration / 1000) : -1; // Convert to seconds or session
@@ -97,6 +97,7 @@ public class LoginController {
                 user.getEmail(),
                 user.getId(),
                 user.getUsername(),
+                user.getRole(),
                 "Login successful"
             );
             

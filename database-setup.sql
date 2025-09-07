@@ -8,9 +8,13 @@ CREATE TABLE user_registration (
     phone VARCHAR(20),
     password VARCHAR(255) NOT NULL,
     verification_status BOOLEAN NOT NULL DEFAULT FALSE,
+    role INT NOT NULL DEFAULT 1 COMMENT '1=Customer, 2=Admin, 3=SuperAdmin',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+-- Use below UPDATE to change you account as Admin. 1 - customer, 2 - admin, 3 - superadmin
+UPDATE user_registration SET role = 3 WHERE email = 'your_created_account_email';
 
 CREATE TABLE user_profile (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,

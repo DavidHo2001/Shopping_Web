@@ -9,15 +9,17 @@ public class LoginResponse {
     private Long userId;
     private String username;
     private String message;
+    private Integer role;
 
     // Default constructor
     public LoginResponse() {}
 
     // Constructor with parameters
-    public LoginResponse(String email, Long userId, String username, String message) {
+    public LoginResponse(String email, Long userId, String username, Integer role, String message) {
         this.email = email;
         this.userId = userId;
         this.username = username;
+        this.role = role;
         this.message = message;
     }
 
@@ -52,5 +54,13 @@ public class LoginResponse {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
     }
 }

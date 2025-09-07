@@ -97,6 +97,7 @@ public class UserRegistrationController {
                 "email", savedUser.getEmail(),
                 "phone", savedUser.getPhone() != null ? savedUser.getPhone() : "",
                 "verificationStatus", savedUser.isVerificationStatus(),
+                "role", savedUser.getRole(),
                 "message", "User registered successfully"
             );
             

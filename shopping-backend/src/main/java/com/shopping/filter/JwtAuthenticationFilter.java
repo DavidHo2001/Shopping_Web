@@ -17,8 +17,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 /**
  * JWT Authentication Filter
@@ -84,28 +87,46 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String email = jwtService.extractEmail(jwt);
             Long userId = jwtService.extractUserId(jwt);
+            Integer role = jwtService.extractRole(jwt);
             
             // Get user from database to ensure they still exist
             Optional<UserRegistration> userOptional = userRegistrationRepository.findByEmail(email);
             if (userOptional.isPresent()) {
                 UserRegistration userInfo = userOptional.get();
-                
                 // UsernamePasswordAuthenticationToken only takes 3 parameters
                 // 1. Principal (user identifier)
                 // 2. Credentials (not needed, already authenticated)
-                // 3. Authorities (empty for now, can add roles later)
+                // 3. Authorities (Added Spring Security object)
+                // Spring Security Authority
+                List<GrantedAuthority> authorities = new ArrayList<>();
+                switch (role) {
+                    case 1:
+                        authorities.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
+                        break;
+                    case 2:
+                        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                        break;
+                    case 3:
+                        authorities.add(new SimpleGrantedAuthority("ROLE_SUPERADMIN"));
+                        break;
+                    default:
+                        authorities.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
+                }
+
                 Map<String, Object> user = Map.of(
                     "userId", userId,
                     "email", email,
                     "username", userInfo.getUsername(),
                     "firstName", userInfo.getFirstName(),
                     "lastName", userInfo.getLastName(),
-                    "phone", userInfo.getPhone()
+                    "phone", userInfo.getPhone(),
+                    "role", role //Easy access for frontend to show Admin page
                 );
+                
                 return new UsernamePasswordAuthenticationToken(
                     user, // Principal (user identifier)        
-                    null,           
-                    new ArrayList<>() // Authorities (empty for now, can add roles later)
+                    null, // Credentials ()
+                    authorities // Authorities with proper roles
                 );
                 
             }

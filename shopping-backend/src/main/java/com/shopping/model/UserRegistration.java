@@ -35,6 +35,9 @@ public class UserRegistration {
     @Column(name = "verification_status", nullable = false)
     private boolean verificationStatus = false;
 
+    @Column(nullable = false)
+    private Integer role = 1; // Default role: 1=Customer, 2=Admin, 3=SuperAdmin
+
     @Transient
     private String confirmPassword; // Not persisted
     
@@ -62,4 +65,6 @@ public class UserRegistration {
     public void setConfirmPassword(String confirmPassword) {this.confirmPassword = confirmPassword;}
     public String getVerificationCode() {return verificationCode;}
     public void setVerificationCode(String verificationCode) {this.verificationCode = verificationCode;}
+    public Integer getRole() {return role;}
+    public void setRole(Integer role) {this.role = role;}
 }

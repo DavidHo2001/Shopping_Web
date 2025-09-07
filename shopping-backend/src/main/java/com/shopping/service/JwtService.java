@@ -16,6 +16,7 @@ import java.util.function.Function;
 /**
  * Service for JWT token operations
  * Handles token generation, validation, and extraction of user information
+ * JWT Validation Flow: validateToken -> extractEmail -> extractClaim -> extractAllClaims -> parseClaimsJws (signature verification) + isTokenExpired -> extractExpiration
  */
 @Service
 public class JwtService {
@@ -32,10 +33,11 @@ public class JwtService {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(String email, Long userId) {
+    public String generateToken(String email, Long userId, Integer role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
         claims.put("email", email);
+        claims.put("role", role);
         return createToken(claims, email);
     }
 
@@ -74,6 +76,10 @@ public class JwtService {
         Claims claims = extractAllClaims(token);
         return claims.get("userId", Long.class);
     }
+    public Integer extractRole(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("role", Integer.class);
+    }
 
     /**
      * Extract expiration date from token
@@ -102,9 +108,9 @@ public class JwtService {
      */
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
+                .setSigningKey(getSigningKey()) //Set Secret Key
                 .build()
-                .parseClaimsJws(token)
+                .parseClaimsJws(token) //Verify signature
                 .getBody();
     }
     

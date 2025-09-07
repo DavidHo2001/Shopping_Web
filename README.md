@@ -14,14 +14,19 @@ A comprehensive e-commerce platform **Glasy** demonstrating modern web developme
 - JWT with HTTP-Only Cookies
 - Custom Security Filter Chain
 - React useContext for State Management
+- Role Based Authorization (Customer, Admin, SuperAdmin)
 **Pages**
 - Profile Page
+- Product Page
 
 **Coming Soon**
- - Product pages (Completed 50%)
+ - Product pages (Completed 70%)
  - Shopping Cart
  - Payment
  - Admin management page(Role)
+    - Upload Product
+    - Manage User account
+    - Manage Order
 
 ## Technology Stack
 
@@ -36,6 +41,13 @@ A comprehensive e-commerce platform **Glasy** demonstrating modern web developme
 - Node.js & npm
 - MySQL Database
 - Maven
+
+### I am using
+- React 19.1.0
+- Springboot 3.5.0
+- Maven Compiler 3.11.0
+- Node 20.15.1
+- MySQL 8.0.43
 
 ### Running the Application
 

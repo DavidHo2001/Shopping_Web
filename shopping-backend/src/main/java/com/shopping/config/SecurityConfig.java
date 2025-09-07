@@ -64,7 +64,11 @@ public class SecurityConfig {
             
             // Configure authorization rules for different endpoints
             .authorizeHttpRequests(auth -> auth
-                // Require JWT for these endpoints
+                // Admin endpoints (e.g. product upload)
+                .requestMatchers("/api/admin/**").hasAnyRole("ADMIN", "SUPERADMIN")
+                // Super Admin endpoints (e.g. delete user account)
+                .requestMatchers("/api/superadmin/**").hasRole("SUPERADMIN")
+                // Customer endpoints (any authenticated user)
                 .requestMatchers("/api/cart/**", "/api/checkout/**", "/api/profile/**").authenticated()
                 // All other requests are public
                 .anyRequest().permitAll()

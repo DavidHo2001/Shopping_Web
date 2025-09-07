@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Product from "./pages/Product";
+import AdminProduct from "./pages/AdminProduct"
 
 import { UserProvider } from "./contexts/UserContext"; //For sharing context
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/admin-product" element={<AdminProduct />} />
         </Routes>
         </div>
       </Router>

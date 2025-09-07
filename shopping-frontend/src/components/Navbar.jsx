@@ -62,6 +62,14 @@ const Navbar = () => {
       </ul>
       <div className="navbar__actions">
         <input className="navbar__search" placeholder="搜尋商品、風格和品牌" />
+        {user?.role >= 2 && (
+        <button
+          className="navbar__button"
+          onClick={() => navigate("/admin-product")}
+        >
+          Upload Product
+        </button>
+      )}
         <button className="navbar__button" onClick={username ? clickUsername : handleLogin}>
           {username ? (
             <span>
