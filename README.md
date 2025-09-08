@@ -4,7 +4,7 @@
 
 A comprehensive e-commerce platform **Glasy** demonstrating modern web development practices and secure authentication implementation.
 
-![Glasy](https://github.com/user-attachments/assets/60510ab9-1795-46c0-9046-ccce3e622434)
+![Glasy](https://github.com/user-attachments/assets/ac85b900-ec77-485a-8a2a-720c6b83de40)
 
 ## Completed Features
 

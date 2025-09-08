@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./Product.css";
 const Product = () => {
+    const { category } = useParams(); // get category from URL
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -9,7 +11,7 @@ const Product = () => {
 
     useEffect(() => {
         fetchProducts();
-    }, []);
+    }, [category]); //Fetch when category changes
     const openDialog = (item) => {
         setSelectedProduct(item);
       };
@@ -17,8 +19,11 @@ const Product = () => {
         setSelectedProduct(null);
     }
     const fetchProducts = async () => {
+        let url = "";
+        if (!category){url = "/api/product/fetchAllProducts";}
+        else{url = `/api/product/fetchByCategory/${category}`;}
         try {
-            const response = await fetch("/api/product/fetchAllProducts");
+            const response = await fetch(url);
             if (response.ok) {
                 setProducts(await response.json());
             } else {
@@ -36,7 +41,7 @@ const Product = () => {
 
     return (
         <div className="product-container">
-            <h1>All Products</h1>
+            <h1>{category ? (category + " Products") : "All Products"}</h1>
             <div className="ProductTable">
                 {products.map((item) => (
                     <div key={item.id} className="ProductBox" onClick={()=>openDialog(item)}>

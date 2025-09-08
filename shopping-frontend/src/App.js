@@ -23,6 +23,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/product/:category" element={<Product />} />
           <Route path="/admin-product" element={<AdminProduct />} />
         </Routes>
         </div>

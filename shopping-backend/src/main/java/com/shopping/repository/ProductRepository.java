@@ -11,8 +11,11 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     // List<Product> findAll() is inherited.
-    
+
     List<Product> findByCategory(String category);
+
+    //Find category in (Neutral, Men / Women) and sort them by ID.
+    List<Product> findByCategoryInOrderById(List<String> categories);
 
     List<Product> findByBrand(String brand);
 

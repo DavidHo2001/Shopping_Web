@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/product")
@@ -30,11 +31,19 @@ public class ProductController {
 
     @GetMapping("/fetchByCategory/{category}")
     public ResponseEntity<Object> fetchByCategory(@PathVariable String category) {
-        List<Product> products = productRepository.findByCategory(category);
+        List<String> categories = new ArrayList<>();
+        categories.add(category);
+        
+        // If category is Men or Women, add Neutral products
+        if ("Men".equals(category) || "Women".equals(category)) {
+            categories.add("Neutral");
+        }
+        
+        List<Product> products = productRepository.findByCategoryInOrderById(categories);
         if (!products.isEmpty()){
             return ResponseEntity.ok(products);
         } else {
-            return ResponseEntity.badRequest().body(Map.of("message", "No product found"));
+            return ResponseEntity.ok(new ArrayList<>());
         }
     }
 }

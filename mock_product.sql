@@ -10,15 +10,15 @@ VALUES
 INSERT INTO product (name, category, brand, description, price, image)
 VALUES ('Glasy Cool', 'Men', 'Glasy Luxe', 'Masterfully crafted from premium titanium alloy with hand-polished edges, the Glasy Cool epitomizes sophisticated masculinity. Featuring Italian acetate temples with precision-engineered spring hinges and anti-reflective sapphire crystal lenses that offer 100% UV protection. The ergonomic nose bridge is custom-fitted with hypoallergenic silicone pads, while the temple tips showcase signature Glasy Luxe engravings. Each frame undergoes 72 hours of quality testing and comes with a handcrafted leather case, microfiber cloth, and lifetime adjustment service. Perfect for the discerning gentleman who demands both style and substance.', 1000.00, '/Products/GlasyCool.png');
 -- WOMEN (Glasses)
-INSERT INTO products (name, category, brand, description, price, image)
+INSERT INTO product (name, category, brand, description, price, image)
 VALUES
-('Glasy Elegant', 'Women', 'Glasy Luxe', 'Rose gold metal cat-eye frame with subtle blush accents.', 799.00, 'url6'),
+('Glasy Elegant', 'Women', 'Glasy Luxe', 'Rose gold metal cat-eye frame with subtle blush accents.', 799.00, '/Products/GlasyElegant.png'),
 ('Glasy Crystal', 'Women', 'Glasy Luxe', 'Transparent acetate round frame, lightweight minimalist style.', 599.00, 'url7'),
 ('Glasy Velvet', 'Women', 'Glasy Girl', 'Oversized deep black frame offering bold fashion appeal.', 699.00, 'url8'),
 ('Glasy Petite', 'Women', 'Glasy Girl', 'Soft lavender acetate, slim temples, spring hinges.', 499.00, 'url9'),
 
 -- ACCESSORIES
-INSERT INTO products (name, category, brand, description, price, image)
+INSERT INTO product (name, category, brand, description, price, image)
 VALUES
 ('Glasy Chain', 'Accessories', 'Glasy Luxe', 'Polished silver glasses chain to secure frames in style.', 550.00, 'url11'),
 ('Glasy Ring', 'Accessories', 'Glasy Luxe', 'Minimal silver ring accent packaged with microfiber pouch.', 300.00, 'url12'),
@@ -27,7 +27,7 @@ VALUES
 ('Glasy Pendant', 'Accessories', 'Glasy Luxe', 'Sunburst pendant with subtle gloss finish.', 330.00, 'url15');
 
 -- OTHER
-INSERT INTO products (name, category, brand, description, price, image)
+INSERT INTO product (name, category, brand, description, price, image)
 VALUES
 ('Portable Beach Umbrella', 'Other', 'Glasy Summer', 'Lightweight UV-resistant umbrella with carry bag.', 780.00, 'url16'),
 ('Beach Lounger', 'Other', 'Glasy Summer', 'Foldable aluminum frame lounger with adjustable back.', 500.00, 'url17'),

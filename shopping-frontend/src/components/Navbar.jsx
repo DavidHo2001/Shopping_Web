@@ -15,7 +15,7 @@ const Navbar = () => {
   useEffect(() => {
     if (!dataLoading) {
       setUsername(user.username);
-      console.log(user);
+      //console.log(user);
     }
   }, [user]);
 
@@ -55,13 +55,13 @@ const Navbar = () => {
         <img src={logo} alt="Glasy" />
       </Link>
       <ul className="navbar__categories">
-        <li onClick={() => navigate("/product")}>All</li>
-        <li>Men</li>
-        <li>Women</li>
-        <li>Accessories</li>
+        <li onClick={() => navigate("/product/")}>All</li>
+        <li onClick={() => navigate("/product/Men")}>Men</li>
+        <li onClick={() => navigate("/product/Women")}>Women</li>
+        <li onClick={() => navigate("/product/Accessories")}>Accessories</li>
       </ul>
       <div className="navbar__actions">
-        <input className="navbar__search" placeholder="搜尋商品、風格和品牌" />
+        <input className="navbar__search" placeholder="Search Products" />
         {user?.role >= 2 && (
         <button
           className="navbar__button"
@@ -75,10 +75,10 @@ const Navbar = () => {
             <span>
               {username} ✏️
             </span>
-          ) : "登入"}
+          ) : "Login"}
         </button>
         <button className="navbar__button" onClick={ username ? handleLogout : handleRegister}>
-          {username ? "登出" : "註冊"}
+          {username ? "Logout" : "Register"}
         </button>
         <button className="navbar__button">🛒</button>
       </div>
