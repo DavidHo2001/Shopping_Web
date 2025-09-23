@@ -50,10 +50,20 @@
     margin: 4px 0;
     font-size: 0.8rem;
     line-height: 1.2;
-    flex: 1;
     overflow: hidden; /* Hide overflow text */
     display: -webkit-box;
     -webkit-box-orient: vertical;
+}
+
+.brandAndCategory {
+    margin: 0;
+    padding: 0;
+}
+
+.brandAndCategory span {
+    background-color: #c3f1ff;
+    font-size: 0.8rem;
+    color: #06b8ff;
 }
 
 .price {
@@ -111,12 +121,13 @@
     /* Grid layout (fixed size for elements) */
     display: grid;
     grid-template-columns: 200px 1fr; /* image 200px at left, other remaining*/
-    grid-template-rows: auto auto 1fr; /* Header Name Description/*
+    grid-template-rows: auto auto auto 1fr; /* Header Name BrandAndCategoryx Description/*
     
     /* Grid areas */
     grid-template-areas: 
         "header header"
         "image name"
+        "image brandAndCategory"
         "image description"
         "price price";
     gap: 20px;
@@ -147,7 +158,15 @@
     font-size: 1.2rem;
     font-weight: bold;
     margin: 0;
-    padding: 10px 0;
+    padding: 5px 0;
+}
+
+.DialogBrandAndCategory {
+    grid-area: brandAndCategory;
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+    padding: 0;
 }
 
 .DialogDescription {

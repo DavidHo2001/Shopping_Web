@@ -35,9 +35,6 @@ const Product = () => {
             setLoading(false);
         }
     };
-    const test = () => {
-        alert("clicked");
-    }
 
     return (
         <div className="product-container">
@@ -50,8 +47,9 @@ const Product = () => {
                             <span className="ProductName">{item.name}</span>
                         </h3>
                         <img src={image_url + item.image} alt={item.name} />
+                        <p className="brandAndCategory"><span>{item.brand + " - " + item.category}</span></p>
                         <p>{item.description.length > 80 ? (item.description.slice(0, 90) + "...") : item.description}</p>
-                        <p className="price">${item.price}</p>
+                        <p classNam ="price">${item.price}</p>
                     </div>
                 ))}
             </div>
@@ -69,6 +67,7 @@ const Product = () => {
                         <img className="DialogImage" src={image_url + selectedProduct.image} />
                         
                         <div className="DialogProductName">{selectedProduct.name}</div>
+                        <div className="DialogBrandAndCategory">{selectedProduct.brand + " - " + selectedProduct.category}</div>
                         <div className="DialogDescription">{selectedProduct.description}</div>
                         <div className="DialogPrice">${selectedProduct.price}</div>
                 </div>

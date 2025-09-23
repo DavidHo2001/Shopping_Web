@@ -2,6 +2,8 @@ package com.shopping.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+// This is the DTO for the product upload and edit
+
 public class UploadProduct {
     private String name;
     private String description;

@@ -15,11 +15,11 @@ A comprehensive e-commerce platform **Glasy** demonstrating modern web developme
 - Custom Security Filter Chain
 - React useContext for State Management
 - Role Based Authorization (Customer, Admin, SuperAdmin)
-- Admin Upload Project (AWS S3 putObject)
 
 **Pages**
 - Profile Page
 - Product Page
+- Admin Upload Page (Product Upload / Edit)
 
 **Coming Soon**
  - Product pages (Completed 70%)
@@ -27,6 +27,7 @@ A comprehensive e-commerce platform **Glasy** demonstrating modern web developme
  - Payment
  - Admin management page(Role)
     - Upload Product (Done)
+    - Edit Product (Done)
     - Manage User account
     - Manage Order
 

@@ -7,10 +7,6 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.time.Instant;
-import java.util.UUID;
 
 @Service
 public class S3UploadService {
@@ -30,8 +26,8 @@ public class S3UploadService {
     private String folderPrefix;
 
     public String uploadProductImage(MultipartFile file, String productName) throws IOException {
-
-        String safeName = "Glasy" + Character.toUpperCase(productName.charAt(0)) + productName.substring(1).toLowerCase();
+        String safeName = Character.toUpperCase(productName.charAt(0)) + productName.substring(1).toLowerCase();
+        if (!productName.contains("Glasy")) { safeName = "Glasy" + safeName; }
 
         String originalExt = extractExtension(file.getOriginalFilename());
         /*String key = folderPrefix +
