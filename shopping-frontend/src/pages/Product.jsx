@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useUser } from "../contexts/UserContext";
 import "./Product.css";
+
 const Product = () => {
     const { category } = useParams(); // get category from URL
+    const { user, addToCart } = useUser();
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -36,6 +39,15 @@ const Product = () => {
         }
     };
 
+    const handleAddToCart = async (item) => {
+        const success = await addToCart(item.id);
+        if (success) {
+            alert(`${item.name} added to cart!`);
+        } else {
+            alert("Failed to add item to cart. Please make sure you are logged in.");
+        }
+    };
+    
     return (
         <div className="product-container">
             <h1>{category ? (category + " Products") : "All Products"}</h1>
@@ -49,7 +61,15 @@ const Product = () => {
                         <img src={image_url + item.image} alt={item.name} />
                         <p className="brandAndCategory"><span>{item.brand + " - " + item.category}</span></p>
                         <p>{item.description.length > 80 ? (item.description.slice(0, 90) + "...") : item.description}</p>
-                        <p classNam ="price">${item.price}</p>
+                        <h2>
+                            <span className="price">${item.price}</span>
+                            <span className="buyButton" onClick={(e)=>
+                            {e.stopPropagation();
+                            handleAddToCart(item);}}>
+                            Buy
+                            </span>
+                        </h2>
+                        
                     </div>
                 ))}
             </div>

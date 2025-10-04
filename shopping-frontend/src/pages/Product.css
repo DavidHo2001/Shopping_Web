@@ -66,10 +66,42 @@
     color: #06b8ff;
 }
 
+.ProductBox h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 0;
+    height: 40px;
+    position: relative;
+}
+
 .price {
     font-weight: bold;
     color: #007bff;
     flex-shrink: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.1rem;
+}
+
+.buyButton {
+    background-color: #28a745;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.buyButton:hover {
+    background-color: #218838;
 }
 
 .ProductID {

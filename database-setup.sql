@@ -57,3 +57,10 @@ CREATE TABLE product (
 -- Set id starting value as 10001
 ALTER TABLE product AUTO_INCREMENT = 10001;
 
+--Table for Cart--
+CREATE TABLE cart (
+    user_id BIGINT NOT NULL PRIMARY KEY,
+    product_list TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

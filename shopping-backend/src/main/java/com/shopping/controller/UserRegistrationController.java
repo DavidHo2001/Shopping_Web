@@ -2,8 +2,10 @@ package com.shopping.controller;
 
 import com.shopping.model.UserRegistration;
 import com.shopping.model.UserProfile;
+import com.shopping.model.Cart;
 import com.shopping.repository.UserRegistrationRepository;
 import com.shopping.repository.UserProfileRepository;
+import com.shopping.repository.CartRepository;
 import com.shopping.service.EmailVerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,9 @@ public class UserRegistrationController {
     @Autowired
     private UserProfileRepository userProfileRepository;
     
+    @Autowired
+    private CartRepository cartRepository;
+
     @Autowired
     private EmailVerificationService emailVerificationService;
     
@@ -88,6 +93,13 @@ public class UserRegistrationController {
             UserProfile userProfile = new UserProfile();
             userProfile.setEmail(savedUser.getEmail());
             userProfileRepository.save(userProfile);
+
+            // Create new cart with email only
+            Cart cart = new Cart();
+            cart.setUserId(savedUser.getId());
+            cart.setProductList("");
+            cartRepository.save(cart);
+
             // Create a dictionary to return the user registration data(key is string and value is object)
             Map<String, Object> response = Map.of(
                 "id", savedUser.getId(),

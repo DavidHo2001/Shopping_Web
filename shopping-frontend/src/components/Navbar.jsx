@@ -10,7 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState(null);
   // Get user data from context
-  const { user, dataLoading, logout, isLoggedIn } = useUser();
+  const { user, dataLoading, logout, isLoggedIn, getCartItemCount } = useUser();
   //useEffect to check if user is logged in when page loads
   useEffect(() => {
     if (!dataLoading) {
@@ -18,6 +18,7 @@ const Navbar = () => {
       //console.log(user);
     }
   }, [user]);
+
 
   const clickUsername = () => {
     navigate("/profile");
@@ -80,7 +81,9 @@ const Navbar = () => {
         <button className="navbar__button" onClick={ username ? handleLogout : handleRegister}>
           {username ? "Logout" : "Register"}
         </button>
-        <button className="navbar__button">🛒</button>
+        <button className="navbar__button cart-button" onClick={() => navigate("/cart")}>
+          🛒 {getCartItemCount() > 0 && <span className="cart-count">{getCartItemCount()}</span>}
+        </button>
       </div>
     </nav>
   );
