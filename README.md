@@ -13,18 +13,17 @@ A comprehensive e-commerce platform **Glasy** demonstrating modern web developme
 - Email Verification
 - JWT with HTTP-Only Cookies
 - Custom Security Filter Chain
-- React useContext for State Management
+- React useContext for State Management (ShoppingCart, UserInfo)
 - Role Based Authorization (Customer, Admin, SuperAdmin)
+
 
 **Pages**
 - Profile Page
 - Product Page
 - Admin Upload Page (Product Upload / Edit)
+- Shopping Cart
 
 **Coming Soon**
- - Product pages (Completed 70%)
- - Shopping Cart
- - Payment
  - Admin management page(Role)
     - Upload Product (Done)
     - Edit Product (Done)
