@@ -1,114 +1,104 @@
-import React, { useState } from "react";
-import "./Register.css";
+import React, { useState, FormEvent, ChangeEvent } from 'react';
+import './Register.css';
+import { sendVerificationCode, userRegister } from '../service/ApiService/RegistrationService';
+import { RegistrationFormData } from '../types/forms';
+import {
+  validateEmail,
+  validatePhone,
+  validatePassword,
+  validatePasswordMatch,
+  validateUsername,
+} from '../utils/validation';
+import { VALIDATION_RULES } from '../utils/constants';
+import { navigateAndReload } from '../utils/formHelpers';
 
-const Register = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    password: "",
-    confirmPassword: "",
-    verificationCode: "",
+const Register= () => {
+  const [formData, setFormData] = useState<RegistrationFormData>({
+    username: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    verificationCode: '',
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [emailVerified, setEmailVerified] = useState(false);
+  const [error, setError] = useState('');
   const [verificationSent, setVerificationSent] = useState(false);
   const [sendingCode, setSendingCode] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
-    // Clear error when user starts typing
-    if (error) setError("");
-    
+    if (error) setError('');
+
     // Reset email verification if email changes
-    if (e.target.name === "email") {
-      setEmailVerified(false);
+    if (name === 'email') {
       setVerificationSent(false);
     }
   };
 
-  const sendVerificationCode = async () => {
+  const handleRequestVerificationCode = async () => {
     if (!formData.email) {
-      setError("Please enter your email address first");
+      setError('Please enter your email address first');
       return;
     }
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setError("Please enter a valid email address");
+    if (!validateEmail(formData.email)) {
+      setError('Please enter a valid email address');
       return;
     }
 
     setSendingCode(true);
-    setError("");
+    setError('');
 
-    try {
-      const response = await fetch("/api/userRegistration/send-verification-code", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: formData.email }),
-      });
+    const success = await sendVerificationCode(formData.email);
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setVerificationSent(true);
-        alert("Verification code sent to your email!");
-      } else {
-        setError(data.message || "Failed to send verification code");
-      }
-    } catch (err) {
-      setError("Network error. Please check your connection.");
-      console.error("Verification code error:", err);
-    } finally {
-      setSendingCode(false);
+    if (success) {
+      setVerificationSent(true);
+      alert('Verification code sent to your email!');
+    } else {
+      setError('Failed to send verification code');
     }
+    setSendingCode(false);
   };
 
-  const validateForm = () => {
+  const validateForm = (): boolean => {
     if (!formData.verificationCode) {
-      setError("Please enter the verification code sent to your email");
+      setError('Please enter the verification code sent to your email');
       return false;
     }
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
+    if (!validatePasswordMatch(formData.password, formData.confirmPassword)) {
+      setError('Passwords do not match');
       return false;
     }
-    if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters long");
+    if (!validatePassword(formData.password, VALIDATION_RULES.PASSWORD_MIN_LENGTH)) {
+      setError(`Password must be at least ${VALIDATION_RULES.PASSWORD_MIN_LENGTH} characters long`);
       return false;
     }
-    if (formData.username.length < 3) {
-      setError("Username must be at least 3 characters long");
+    if (!validateUsername(formData.username, VALIDATION_RULES.USERNAME_MIN_LENGTH)) {
+      setError(`Username must be at least ${VALIDATION_RULES.USERNAME_MIN_LENGTH} characters long`);
       return false;
     }
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setError("Please enter a valid email address");
+    if (!validateEmail(formData.email)) {
+      setError('Please enter a valid email address');
       return false;
     }
-    // Basic phone validation (optional field)
-    if (formData.phone && !/^[\+]?[1-9][\d]{0,15}$/.test(formData.phone.replace(/\s/g, ''))) {
-      setError("Please enter a valid phone number");
+    if (formData.phone && !validatePhone(formData.phone)) {
+      setError('Please enter a valid phone number');
       return false;
     }
     return true;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
+    setError('');
 
     if (!validateForm()) {
       setLoading(false);
@@ -117,37 +107,19 @@ const Register = () => {
 
     try {
       const { confirmPassword, ...submitData } = formData;
+      const response = await userRegister(submitData);
 
-      //Register user
-      const response = await fetch("/api/userRegistration", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(submitData),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        // Handle successful registration
-        console.log("Registration successful:", data);
-        setEmailVerified(true);
-        // You can add redirect logic here
-        // window.location.href = '/login';
-        alert("Registration successful! Please login to continue.");
-        window.location.reload();
-        
-        window.location.href = '/login';
+      if (response && response.username) {
+        alert(`Username: ${response.username} Registration successful! Please login to continue.`);
+        navigateAndReload('/login');
       } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Registration failed. Please try again.");
+        setError('Registration failed. Please try again.');
       }
-    } catch (err) {
-      setError("Network error. Please check your connection.");
-      console.error("Registration error:", err);
-    } finally {
-      setLoading(false);
+    } catch (err: any) {
+      setError(err.message || 'Network error. Please check your connection.');
+      console.error('Registration error:', err);
     }
+    setLoading(false);
   };
 
   return (
@@ -172,11 +144,11 @@ const Register = () => {
               required
               placeholder="Choose a username"
               className="form-input"
-              minLength="3"
-              maxLength="50"
+              minLength={VALIDATION_RULES.USERNAME_MIN_LENGTH}
+              maxLength={VALIDATION_RULES.USERNAME_MAX_LENGTH}
             />
             <small className="form-hint">
-              Username must be at least 3 characters and unique
+              Username must be at least {VALIDATION_RULES.USERNAME_MIN_LENGTH} characters and unique
             </small>
           </div>
 
@@ -192,7 +164,7 @@ const Register = () => {
                 required
                 placeholder="Enter first name"
                 className="form-input"
-                maxLength="50"
+                maxLength={VALIDATION_RULES.USERNAME_MAX_LENGTH}
               />
             </div>
 
@@ -207,7 +179,7 @@ const Register = () => {
                 required
                 placeholder="Enter last name"
                 className="form-input"
-                maxLength="50"
+                maxLength={VALIDATION_RULES.USERNAME_MAX_LENGTH}
               />
             </div>
           </div>
@@ -224,15 +196,15 @@ const Register = () => {
                 required
                 placeholder="Enter your email"
                 className="form-input"
-                maxLength="100"
+                maxLength={VALIDATION_RULES.EMAIL_MAX_LENGTH}
               />
               <button
                 type="button"
-                onClick={sendVerificationCode}
+                onClick={handleRequestVerificationCode}
                 disabled={sendingCode || !formData.email}
                 className="btn btn--secondary verification-btn"
               >
-                {sendingCode ? "Sending..." : "Get Code"}
+                {sendingCode ? 'Sending...' : 'Get Code'}
               </button>
             </div>
             {verificationSent && (
@@ -254,7 +226,7 @@ const Register = () => {
                 required
                 placeholder="Enter 4-digit code"
                 className="form-input"
-                maxLength="4"
+                maxLength={VALIDATION_RULES.VERIFICATION_CODE_LENGTH}
                 pattern="[0-9]{4}"
               />
               <small className="form-hint">
@@ -273,7 +245,7 @@ const Register = () => {
               onChange={handleChange}
               placeholder="Enter your phone number"
               className="form-input"
-              maxLength="20"
+              maxLength={VALIDATION_RULES.PHONE_MAX_LENGTH}
             />
             <small className="form-hint">
               Include country code if international (e.g., +1 for US)
@@ -291,10 +263,10 @@ const Register = () => {
               required
               placeholder="Create a password"
               className="form-input"
-              minLength="6"
+              minLength={VALIDATION_RULES.PASSWORD_MIN_LENGTH}
             />
             <small className="form-hint">
-              Password must be at least 6 characters
+              Password must be at least {VALIDATION_RULES.PASSWORD_MIN_LENGTH} characters
             </small>
           </div>
 
@@ -315,11 +287,11 @@ const Register = () => {
           <div className="form-options">
             <label className="checkbox-container">
               <input type="checkbox" required />
-              <span className="checkmark"></span>I agree to the{" "}
+              <span className="checkmark"></span>I agree to the{' '}
               <a href="/terms" className="auth-link">
                 Terms of Service
-              </a>{" "}
-              and{" "}
+              </a>{' '}
+              and{' '}
               <a href="/privacy" className="auth-link">
                 Privacy Policy
               </a>
@@ -331,13 +303,13 @@ const Register = () => {
             className="btn btn--primary btn--full"
             disabled={loading}
           >
-            {loading ? "Creating Account..." : "Create Account"}
+            {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
 
         <div className="auth-footer">
           <p>
-            Already have an account?{" "}
+            Already have an account?{' '}
             <a href="/login" className="auth-link">
               Sign In
             </a>

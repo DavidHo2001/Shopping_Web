@@ -1,8 +1,11 @@
-import React from "react";
-import "./HomePage.css";
-import heroImage from "../assets/hero_comic.png";
+import React from 'react';
+import './HomePage.css';
+import heroImage from '../assets/hero_comic.png';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="homepage">
       {/* Hero Section */}
@@ -64,7 +67,9 @@ const HomePage = () => {
           consultation
         </p>
         <div className="cta__buttons">
-          <button className="btn btn--primary">Shop Now</button>
+          <button className="btn btn--primary" onClick={() => navigate('/product')}>
+            Shop Now
+          </button>
           <button className="btn btn--secondary">Book Appointment</button>
         </div>
       </section>

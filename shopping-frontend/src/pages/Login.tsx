@@ -1,58 +1,45 @@
-import React, { useState } from "react";
-import "./Login.css";
+import React, { useState, FormEvent, ChangeEvent } from 'react';
+import './Login.css';
+import { login } from '../service/ApiService/AuthService';
+import { navigateAndReload } from '../utils/formHelpers';
+
+interface LoginFormData {
+  email: string;
+  password: string;
+  keepLoggedIn: boolean;
+}
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+  const [formData, setFormData] = useState<LoginFormData>({
+    email: '',
+    password: '',
     keepLoggedIn: false,
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
-  const handleChange = (e) => {
-    // Update form data Dictionary
-    //{e.target.name: e.target.value,
-    // e.target.name: e.target.value,
-    // e.target.name: e.target.value...}
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: type === 'checkbox' ? checked : value,
     });
-    // Clear error when user starts typing
-    if (error) setError("");
+    if (error) setError('');
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-    //When the keep login is checked, the default value is "on"  
-    if(formData.keepLoggedIn){
-      formData.keepLoggedIn = true;
-    }
+    setError('');
+
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        alert("[Login successful] Welcome back, " + data.username + "!");
-        window.location.reload();
-        
-        window.location.href = '/';
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Login failed. Please try again.");
+      const data = await login(formData);
+      if (data) {
+        alert(`[Login successful] Welcome back, ${data.username}!`);
+        navigateAndReload('/');
       }
-    } catch (err) {
-      setError("Network error. Please check your connection.");
-      console.error("Login error:", err);
+    } catch (err: any) {
+      setError(err.message || 'Login failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -99,7 +86,8 @@ const Login = () => {
 
           <div className="form-options">
             <label className="checkbox-container">
-              <input type="checkbox"
+              <input
+                type="checkbox"
                 checked={formData.keepLoggedIn}
                 name="keepLoggedIn"
                 onChange={handleChange}
@@ -117,13 +105,13 @@ const Login = () => {
             className="btn btn--primary btn--full"
             disabled={loading}
           >
-            {loading ? "Signing In..." : "Sign In"}
+            {loading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
 
         <div className="auth-footer">
           <p>
-            Don't have an account?{" "}
+            Don't have an account?{' '}
             <a href="/register" className="auth-link">
               Create Account
             </a>

@@ -6,6 +6,8 @@ A comprehensive e-commerce platform **Glasy** demonstrating modern web developme
 
 ![Glasy](https://github.com/user-attachments/assets/ac85b900-ec77-485a-8a2a-720c6b83de40)
 
+**[2026-02-07] - Upgraded to TypeScript and Refactored the code**
+
 ## Completed Features
 
  **User Authentication System**
