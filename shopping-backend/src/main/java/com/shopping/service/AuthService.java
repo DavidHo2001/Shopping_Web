@@ -36,7 +36,9 @@ public class AuthService {
     public LoginResponse login(LoginRequest loginRequest, HttpServletResponse response) {
         UserRegistration user = userRegistrationRepository.findByEmail(loginRequest.getEmail())
             .orElseThrow(() -> new IllegalStateException(Constants.ERR_INVALID_EMAIL_PASSWORD));
-        
+        if (user.getIsBlocked()) {
+            throw new IllegalStateException(Constants.ERR_USER_BLOCKED);
+        }
         if (!user.isVerificationStatus()) {
             throw new IllegalStateException(Constants.ERR_EMAIL_NOT_VERIFIED);
         }

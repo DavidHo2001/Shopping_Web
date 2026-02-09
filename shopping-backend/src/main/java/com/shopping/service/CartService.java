@@ -34,7 +34,6 @@ public class CartService {
         cart.setProductList(request.getCartItemsIds());
         cartRepository.save(cart);
         
-        log.info("Cart synced successfully for user ID: {}", userId);
         return Constants.MSG_CART_SYNC_SUCCESS;
     }
 
@@ -85,8 +84,7 @@ public class CartService {
                 cartItems.add(cartItem);
             });
         }
-        
-        log.info("Fetched {} cart items for user ID: {}", cartItems.size(), userId);
+
         return cartItems;
     }
 
@@ -98,7 +96,6 @@ public class CartService {
         cart.setProductList("");
         cartRepository.save(cart);
         
-        log.info("Cart cleared successfully for user ID: {}", userId);
         return Constants.MSG_CART_CLEAR_SUCCESS;
     }
 }

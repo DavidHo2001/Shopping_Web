@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
 import AdminProduct from './pages/AdminProduct';
+import UserRoleManagement from './pages/UserRoleManagement';
 import { UserProvider } from './contexts/UserContext';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/product/:category" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/admin-product" element={<AdminProduct />} />
+            <Route path="/user-role-management" element={<UserRoleManagement />} />
           </Routes>
         </div>
       </Router>

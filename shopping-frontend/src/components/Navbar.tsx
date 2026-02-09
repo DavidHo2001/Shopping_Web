@@ -60,6 +60,11 @@ const Navbar= () => {
             Upload Product
           </button>
         )}
+        {user?.role && user.role === 3 && (
+          <button className="navbar__button" onClick={() => navigate('/user-role-management')}>
+            User Management
+          </button>
+        )}
         <button className="navbar__button" onClick={username ? clickUsername : handleLogin}>
           {username ? <span>{username} ✏️</span> : 'Login'}
         </button>

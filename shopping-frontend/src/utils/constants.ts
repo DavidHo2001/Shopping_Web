@@ -34,6 +34,10 @@ export const API_ENDPOINTS = {
     EDIT_PRODUCT: '/api/admin/edit-product',
     DELETE_PRODUCT: '/api/admin/delete-product',
   },
+  SUPERADMIN: {
+    USER_ROLE_LIST: '/api/superadmin/user-role/list',
+    UPDATE_USER_ROLE: '/api/superadmin/user-role/update',
+  },
 };
 
 export const IMAGE_BASE_URL = 'https://shopping-web-bucket.s3.ap-southeast-2.amazonaws.com';

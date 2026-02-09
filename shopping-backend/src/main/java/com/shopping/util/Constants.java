@@ -46,8 +46,8 @@ public class Constants {
     public static final String ERR_PRODUCT_NOT_FOUND = "Product not found";
     public static final String ERR_CART_NOT_FOUND = "Cart not found";
     public static final String ERR_NO_PRODUCTS = "No product data";
+    public static final String ERR_USER_BLOCKED = "User is blocked, please contact support";
     
     private Constants() {
-        // Private constructor to prevent instantiation
     }
 }
